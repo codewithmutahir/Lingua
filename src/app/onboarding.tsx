@@ -1,6 +1,8 @@
 import { Image } from "expo-image";
+import { SymbolView } from "expo-symbols";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { images } from "@/constants/images";
 
@@ -76,9 +78,9 @@ export default function OnboardingScreen() {
               label="Hello!"
               backgroundColor="#e8f3ff"
               textClassName="text-text-primary"
-              rotation="-10deg"
+              rotation="-28deg"
               tailOffset={14}
-              style={{ top: 28, left: 24 }}
+              style={{ top: -22, left: 10 }}
             />
             <SpeechBubble
               label="¡Hola!"
@@ -86,19 +88,19 @@ export default function OnboardingScreen() {
               textClassName="text-lingua-purple"
               rotation="12deg"
               tailOffset={18}
-              style={{ top: 16, right: 58 }}
+              style={{ top: -28, right: 68 }}
             />
             <SpeechBubble
               label="你好!"
               backgroundColor="#ffece8"
               textClassName="text-[#e53935]"
-              rotation="14deg"
+              rotation="26deg"
               tailOffset={10}
-              style={{ top: 118, right: 50 }}
+              style={{ top: 64, right: 10 }}
             />
             <Image
               source={images.mascotWelcome}
-              style={{ width: 320, height: 320 }}
+              style={{ width: 420, height: 420 }}
               contentFit="contain"
             />
           </View>
@@ -108,7 +110,15 @@ export default function OnboardingScreen() {
           <View className="flex-1" />
           <Text className="text-h4 text-white">Get Started</Text>
           <View className="flex-1 items-end">
-            <Text className="text-h3 text-white">›</Text>
+            <SymbolView
+              name="chevron.right"
+              tintColor="#ffffff"
+              size={18}
+              weight="semibold"
+              fallback={
+                <Ionicons name="chevron-forward" size={18} color="#ffffff" />
+              }
+            />
           </View>
         </Pressable>
       </View>
