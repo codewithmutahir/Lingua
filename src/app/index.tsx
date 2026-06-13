@@ -1,6 +1,6 @@
 import { useAuth, useClerk } from "@clerk/expo";
 import { Image } from "expo-image";
-import { Redirect } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 import { images } from "@/constants/images";
@@ -34,11 +34,21 @@ export default function Index() {
       <Text className="text-body-lg text-text-secondary text-center mt-3">
         Welcome back! Your language journey continues here.
       </Text>
+      <Link href="/choose-language" asChild>
+        <Pressable className="mt-8 w-full bg-lingua-purple rounded-lg active:opacity-90">
+          <Text
+            className="text-body-lg text-white text-center py-3"
+            style={{ fontFamily: "Poppins-SemiBold" }}
+          >
+            Choose a language
+          </Text>
+        </Pressable>
+      </Link>
       <Pressable
         onPress={() => signOut()}
-        className="mt-8 w-full bg-lingua-purple rounded-lg active:opacity-90"
+        className="mt-3 w-full border border-border rounded-lg active:opacity-90"
       >
-        <Text className="text-button text-white text-center py-3">
+        <Text className="text-body-md text-text-secondary text-center py-3">
           Sign out
         </Text>
       </Pressable>
