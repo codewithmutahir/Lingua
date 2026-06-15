@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { images } from "@/constants/images";
+import { HOME_HREF } from "@/lib/auth";
 
 type SpeechBubbleProps = {
   label: string;
@@ -58,7 +59,7 @@ export default function OnboardingScreen() {
   }
 
   if (isSignedIn) {
-    return <Redirect href="/" />;
+    return <Redirect href={HOME_HREF} />;
   }
 
   return (
