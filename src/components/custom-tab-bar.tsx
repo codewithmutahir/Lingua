@@ -138,10 +138,18 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
               }
             };
 
+            const onLongPress = () => {
+              navigation.emit({
+                type: "tabLongPress",
+                target: route.key,
+              });
+            };
+
             return (
               <Pressable
                 key={route.key}
                 onPress={onPress}
+                onLongPress={onLongPress}
                 style={{
                   flex: 1,
                   alignItems: "center",

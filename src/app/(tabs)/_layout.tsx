@@ -9,7 +9,7 @@ export default function TabLayout() {
   const { isSignedIn, isLoaded } = useAuth();
   const { selectedLanguageId, hasHydrated } = useLanguageStore();
 
-  if (!isLoaded || !hasHydrated) {
+  if (!isLoaded) {
     return (
       <View className="flex-1 justify-center items-center bg-background">
         <ActivityIndicator size="large" color="#7c3aed" />
@@ -19,6 +19,14 @@ export default function TabLayout() {
 
   if (!isSignedIn) {
     return <Redirect href="/onboarding" />;
+  }
+
+  if (!hasHydrated) {
+    return (
+      <View className="flex-1 justify-center items-center bg-background">
+        <ActivityIndicator size="large" color="#7c3aed" />
+      </View>
+    );
   }
 
   if (!selectedLanguageId) {

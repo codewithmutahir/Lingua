@@ -1,6 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { images } from "@/constants/images";
 import type { TodayPlanItem } from "@/lib/home-data";
@@ -101,17 +101,15 @@ export function TodayPlanSection({ items }: TodayPlanSectionProps) {
     <View className="mb-6">
       <View className="flex-row items-center justify-between mb-4">
         <Text className="text-h3 text-text-primary">Today&apos;s plan</Text>
-        <Pressable hitSlop={8}>
-          <Text
-            style={{
-              fontFamily: "Poppins-SemiBold",
-              fontSize: 14,
-              color: "#6C4EF5",
-            }}
-          >
-            View all
-          </Text>
-        </Pressable>
+        <Text
+          style={{
+            fontFamily: "Poppins-SemiBold",
+            fontSize: 14,
+            color: "#6C4EF5",
+          }}
+        >
+          View all
+        </Text>
       </View>
 
       <View className="gap-4">

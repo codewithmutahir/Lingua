@@ -42,9 +42,10 @@ const DEFAULT_STREAK = 12;
 
 function findLessonWithCafeContext(languageId: string): Lesson | undefined {
   return getLessonsByLanguageId(languageId).find((lesson) =>
-    lesson.phrases.some((phrase) =>
-      phrase.context?.toLowerCase().includes("café"),
-    ),
+    lesson.phrases.some((phrase) => {
+      const context = phrase.context?.toLowerCase() ?? "";
+      return context.startsWith("ordering at") || context.startsWith("at a ");
+    }),
   );
 }
 

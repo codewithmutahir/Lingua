@@ -1,5 +1,4 @@
-import { useRouter } from "expo-router";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ContinueLearningCard } from "@/components/home/continue-learning-card";
@@ -10,8 +9,7 @@ import { getHomeScreenData } from "@/lib/home-data";
 import { useLanguageStore } from "@/store/language-store";
 
 export default function HomeScreen() {
-  const router = useRouter();
-  const { selectedLanguageId, clearSelectedLanguage } = useLanguageStore();
+  const { selectedLanguageId } = useLanguageStore();
 
   const homeData = selectedLanguageId
     ? getHomeScreenData(selectedLanguageId)
@@ -58,18 +56,6 @@ export default function HomeScreen() {
         />
 
         <TodayPlanSection items={homeData.todayPlan} />
-
-        <Pressable
-          onPress={async () => {
-            await clearSelectedLanguage();
-            router.replace("/choose-language");
-          }}
-          className="mt-8 border border-border rounded-xl active:opacity-80"
-        >
-          <Text className="text-body-sm text-text-secondary text-center py-3">
-            Clear language selection (test)
-          </Text>
-        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );

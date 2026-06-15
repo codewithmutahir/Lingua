@@ -2,7 +2,9 @@ import "../../global.css";
 
 import { ClerkProvider } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
-import { Stack } from "expo-router";
+import { useGlobalSearchParams, usePathname, Stack } from "expo-router";
+import { PostHogProvider, usePostHog } from "posthog-react-native";
+import { useEffect } from "react";
 
 import { useAppFonts } from "@/hooks/useAppFonts";
 
@@ -16,6 +18,20 @@ function getPublishableKey(): string {
 
 const publishableKey = getPublishableKey();
 
+function PostHogScreenTracker() {
+  const pathname = usePathname();
+  const params = useGlobalSearchParams();
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    if (posthog) {
+      posthog.screen(pathname, params as Record<string, string>);
+    }
+  }, [pathname, params]);
+
+  return null;
+}
+
 export default function RootLayout() {
   const { loaded, error } = useAppFonts();
 
@@ -24,8 +40,14 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <Stack screenOptions={{ headerShown: false }} />
-    </ClerkProvider>
+    <PostHogProvider
+      apiKey={process.env.EXPO_PUBLIC_POSTHOG_KEY!}
+      options={{ host: process.env.EXPO_PUBLIC_POSTHOG_HOST }}
+    >
+      <PostHogScreenTracker />
+      <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+        <Stack screenOptions={{ headerShown: false }} />
+      </ClerkProvider>
+    </PostHogProvider>
   );
 }
