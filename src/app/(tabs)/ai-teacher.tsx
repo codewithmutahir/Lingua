@@ -1,12 +1,38 @@
-import { Text, View } from "react-native";
+import { router } from "expo-router";
+
+import {
+  AudioLessonEmptyState,
+  AudioLessonView,
+} from "@/components/audio-lesson/audio-lesson-view";
+import { getActiveAudioLessonForLanguage } from "@/lib/audio-lesson-data";
+import { useLanguageStore } from "@/store/language-store";
+import { useLessonProgressStore } from "@/store/lesson-progress-store";
 
 export default function AiTeacherScreen() {
+  const { selectedLanguageId } = useLanguageStore();
+  const { progressByLessonId } = useLessonProgressStore();
+
+  if (!selectedLanguageId) {
+    return (
+      <AudioLessonEmptyState message="Select a language to start an AI Teacher session." />
+    );
+  }
+
+  const lessonData = getActiveAudioLessonForLanguage(
+    selectedLanguageId,
+    progressByLessonId,
+  );
+
+  if (!lessonData) {
+    return (
+      <AudioLessonEmptyState message="No lessons available for your selected language yet." />
+    );
+  }
+
   return (
-    <View className="flex-1 items-center justify-center bg-background px-6">
-      <Text className="text-h2 text-text-primary">AI Teacher</Text>
-      <Text className="text-body-md text-text-secondary mt-2 text-center">
-        AI video lessons coming soon.
-      </Text>
-    </View>
+    <AudioLessonView
+      lessonData={lessonData}
+      onEndCall={() => router.push("/(tabs)")}
+    />
   );
 }

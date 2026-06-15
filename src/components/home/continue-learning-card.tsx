@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { images } from "@/constants/images";
@@ -26,7 +27,7 @@ export function ContinueLearningCard({
         </Text>
 
         <Pressable
-          onPress={onContinue}
+          onPress={onContinue ?? (() => router.push("/(tabs)/learn"))}
           style={({ pressed }) => [styles.continueButton, pressed && styles.pressed]}
         >
           <Text style={styles.continueText}>Continue</Text>

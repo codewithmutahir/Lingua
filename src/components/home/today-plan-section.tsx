@@ -1,8 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Image } from "expo-image";
 import { Text, View } from "react-native";
-
-import { images } from "@/constants/images";
 import type { TodayPlanItem } from "@/lib/home-data";
 
 type TodayPlanSectionProps = {
@@ -53,14 +50,9 @@ function PlanIcon({ variant }: { variant: TodayPlanItem["variant"] }) {
         backgroundColor: "#FF8B7B",
         alignItems: "center",
         justifyContent: "center",
-        overflow: "hidden",
       }}
     >
-      <Image
-        source={images.mascotWelcome}
-        style={{ width: 34, height: 34 }}
-        contentFit="contain"
-      />
+      <Ionicons name="text-outline" size={22} color="#FFFFFF" />
     </View>
   );
 }
