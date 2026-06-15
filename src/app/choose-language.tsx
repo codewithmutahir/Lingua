@@ -102,7 +102,10 @@ export default function ChooseLanguageScreen() {
     router.back();
   };
 
-  const earthHeight = Math.round(screenWidth * 0.48);
+  // earth.png is 1:1 with empty sky padding on top; crop only the sky band.
+  const earthImageSize = screenWidth;
+  const earthSkyCrop = Math.round(earthImageSize * 0.15);
+  const earthVisibleHeight = Math.round(earthImageSize * 0.56);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
@@ -140,7 +143,7 @@ export default function ChooseLanguageScreen() {
 
         <ScrollView
           className="flex-1 px-5"
-          contentContainerStyle={{ paddingBottom: 24 }}
+          contentContainerStyle={{ paddingBottom: 8 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -164,11 +167,13 @@ export default function ChooseLanguageScreen() {
               No languages found for &quot;{searchQuery.trim()}&quot;
             </Text>
           ) : null}
+        </ScrollView>
 
+        <View className="px-5 pt-2 pb-3 bg-background">
           <Pressable
             onPress={handleConfirm}
             disabled={!pendingLanguageId}
-            className={`mt-6 rounded-full py-3.5 items-center ${
+            className={`rounded-full py-3.5 items-center ${
               pendingLanguageId
                 ? "bg-lingua-purple active:opacity-90"
                 : "bg-border"
@@ -183,26 +188,24 @@ export default function ChooseLanguageScreen() {
               Continue
             </Text>
           </Pressable>
-        </ScrollView>
+        </View>
 
         <View
+          pointerEvents="none"
           style={{
             width: screenWidth,
-            height: earthHeight,
+            height: earthVisibleHeight,
             overflow: "hidden",
           }}
         >
           <Image
             source={images.earth}
             style={{
-              width: screenWidth,
-              height: screenWidth,
-              position: "absolute",
-              bottom: 0,
-              left: 0,
+              width: earthImageSize,
+              height: earthImageSize,
+              marginTop: -earthSkyCrop,
             }}
             contentFit="contain"
-            contentPosition="bottom"
           />
         </View>
       </View>
