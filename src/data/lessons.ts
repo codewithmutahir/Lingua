@@ -499,7 +499,7 @@ export const lessons: Lesson[] = [
         id: "fr-phrase-baguette",
         text: "Une baguette, s'il vous plaît.",
         translation: "A baguette, please.",
-        context: "At a bakery",
+        context: "Ordering at a café",
       },
     ],
     activities: [
