@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Pressable,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   useWindowDimensions,
@@ -153,8 +154,8 @@ export default function ChooseLanguageScreen() {
         </View>
 
         <ScrollView
-          className="flex-1 px-5"
-          contentContainerStyle={{ paddingBottom: 8 }}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -185,10 +186,11 @@ export default function ChooseLanguageScreen() {
             onPress={handleConfirm}
             disabled={!pendingLanguageId}
             className={`rounded-full py-3.5 items-center ${
-              pendingLanguageId
-                ? "bg-lingua-purple active:opacity-90"
-                : "bg-border"
+              pendingLanguageId ? "bg-lingua-purple" : "bg-border"
             }`}
+            style={({ pressed }) =>
+              pendingLanguageId && pressed ? styles.confirmPressed : undefined
+            }
           >
             <Text
               className={`text-body-lg ${
@@ -223,3 +225,16 @@ export default function ChooseLanguageScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  scrollContent: {
+    paddingBottom: 8,
+  },
+  confirmPressed: {
+    opacity: 0.9,
+  },
+});

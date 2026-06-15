@@ -1,6 +1,7 @@
 import type { Lesson } from "@/types/learning";
 
 import { additionalLessons } from "./additional-lessons";
+import { unit3Lessons } from "./unit3-lessons";
 
 export const lessons: Lesson[] = [
   // ── Spanish · Unit 1 ──────────────────────────────────────────────
@@ -909,6 +910,7 @@ export const lessons: Lesson[] = [
     },
   },
   ...additionalLessons,
+  ...unit3Lessons,
 ];
 
 export function getLessonsByUnitId(unitId: string): Lesson[] {

@@ -1,6 +1,6 @@
 import { useClerk } from "@clerk/expo";
 import { useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useLanguageStore } from "@/store/language-store";
 
@@ -18,7 +18,8 @@ export default function ProfileScreen() {
 
       <Pressable
         onPress={() => signOut()}
-        className="mt-8 w-full border border-border rounded-lg active:opacity-90"
+        className="mt-8 w-full border border-border rounded-lg"
+        style={({ pressed }) => pressed && styles.pressed}
       >
         <Text className="text-body-md text-text-secondary text-center py-3">
           Sign out
@@ -29,7 +30,8 @@ export default function ProfileScreen() {
           await clearSelectedLanguage();
           router.replace("/choose-language");
         }}
-        className="mt-3 w-full border border-border rounded-lg active:opacity-90"
+        className="mt-3 w-full border border-border rounded-lg"
+        style={({ pressed }) => pressed && styles.pressed}
       >
         <Text className="text-body-md text-text-secondary text-center py-3">
           Clear language selection (test)
@@ -38,3 +40,9 @@ export default function ProfileScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  pressed: {
+    opacity: 0.9,
+  },
+});
