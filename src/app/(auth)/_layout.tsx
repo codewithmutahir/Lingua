@@ -1,6 +1,8 @@
 import { useAuth } from "@clerk/expo";
 import { Redirect, Stack } from "expo-router";
 
+import { HOME_HREF } from "@/lib/auth";
+
 export default function AuthLayout() {
   const { isSignedIn, isLoaded } = useAuth();
 
@@ -9,7 +11,7 @@ export default function AuthLayout() {
   }
 
   if (isSignedIn) {
-    return <Redirect href="/" />;
+    return <Redirect href={HOME_HREF} />;
   }
 
   return <Stack screenOptions={{ headerShown: false }} />;

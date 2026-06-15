@@ -1,6 +1,7 @@
+import { useAuth } from "@clerk/expo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   Pressable,
@@ -17,6 +18,7 @@ import {
   getPopularLanguages,
   languages,
 } from "@/data/languages";
+import { navigateToHome } from "@/lib/auth";
 import { useLanguageStore } from "@/store/language-store";
 import type { Language } from "@/types/learning";
 
@@ -66,6 +68,7 @@ function LanguageRow({ language, isSelected, onPress }: LanguageRowProps) {
 
 export default function ChooseLanguageScreen() {
   const router = useRouter();
+  const { isSignedIn, isLoaded } = useAuth();
   const { width: screenWidth } = useWindowDimensions();
   const { selectedLanguageId, setSelectedLanguageId } = useLanguageStore();
   const [searchQuery, setSearchQuery] = useState("");
@@ -93,13 +96,21 @@ export default function ChooseLanguageScreen() {
     return getPopularLanguages();
   }, [trimmedQuery]);
 
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (!isSignedIn) {
+    return <Redirect href="/onboarding" />;
+  }
+
   const handleConfirm = () => {
     if (!pendingLanguageId) {
       return;
     }
 
     setSelectedLanguageId(pendingLanguageId);
-    router.back();
+    navigateToHome(router);
   };
 
   // earth.png is 1:1 with empty sky padding on top; crop only the sky band.

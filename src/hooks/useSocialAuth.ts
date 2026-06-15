@@ -4,7 +4,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useCallback, useRef, useState } from "react";
 import { Alert } from "react-native";
 
-import { navigateAfterAuth } from "@/lib/auth";
+import { navigateAfterAuth, navigateToHome } from "@/lib/auth";
 import {
   completeOAuthFromCallback,
   reloadClientSessions,
@@ -100,7 +100,7 @@ export function useSocialAuth() {
 
         if (createdSessionId) {
           await setActive({ session: createdSessionId });
-          router.replace("/");
+          navigateToHome(router);
           return;
         }
 
